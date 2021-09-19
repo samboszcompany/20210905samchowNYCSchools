@@ -1,14 +1,11 @@
 package com.example.a20210905_samchow_nycschools;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.a20210905_samchow_nycschools.Class.School;
-
-import java.util.List;
 
 
 public class SchoolDetailPage extends AppCompatActivity {
@@ -21,7 +18,7 @@ public class SchoolDetailPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.school_detail_page);
+        setContentView(R.layout.detail_page);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         School schoolList = (School) getIntent().getSerializableExtra("schoolData");

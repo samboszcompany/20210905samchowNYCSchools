@@ -8,6 +8,8 @@
         android:id="@+id/TableRow01"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="24dp"
         android:layout_marginTop="8dp">
 
         <TextView
@@ -15,18 +17,18 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="20dp"
+            android:textSize="16dp"
             android:gravity="left"
-            android:text="id"
-            android:textStyle="bold"
-            android:typeface="monospace" />
+            android:text="School Name"
+            android:textColor="#232F34"
+            android:textStyle="bold" />
     </TableRow>
 
     <TableRow
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="24dp"
         >
 
         <TextView
@@ -34,16 +36,47 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="16dp"
-            android:text="categoryId" />
+            android:textSize="14dp"
+            android:gravity="left"
+            android:text="number"
+            android:textColor="#232F34"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="8dp"
+        >
 
         <TextView
-            android:id="@+id/tv_language_classes"
+            android:id="@+id/tv_address"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:height="20sp"
-            android:gravity="right"
-            android:text="description" />
+            android:layout_weight="1"
+            android:textSize="14dp"
+            android:text="Address" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="8dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_phone_num"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="14dp"
+            android:text="Phone Number" />
+
     </TableRow>
 
 </TableLayout>

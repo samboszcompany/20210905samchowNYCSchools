@@ -2,6 +2,10 @@ package com.example.a20210905_samchow_nycschools;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Fragment;
+
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.a20210905_samchow_nycschools.Class.School;
+import com.example.a20210905_samchow_nycschools.Fragment.MainPage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
     private Button btn_search;
     private ArrayList<School> mData = new ArrayList<School>();
     private Context mContext = this;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
+    private MainPage mainPage;
     //that should be return by api data which data allow the user can search for, need more info about the api
     final String[] searchSelectionList = {"dbn","school_name","phone_number","school_email","zip","city"};
 
@@ -47,65 +55,73 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //all hardcode text should put in string file
-        dataDisplayListView = findViewById(R.id.lv_result);
-        tv_errorMsg = findViewById(R.id.tv_errorMsg);
-        et_search= findViewById(R.id.et_search);
-        btn_search= findViewById(R.id.btn_search);
-        sp_search= findViewById(R.id.sp_search);
+        fragmentManager = getFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        mainPage = new MainPage();
+        fragmentTransaction.replace(R.id.fm_mainpage,mainPage,"mainpage");
+        fragmentTransaction.commit();
 
-        ArrayAdapter<String> searchList = new ArrayAdapter<String>(MainActivity.this,
-                android.R.layout.simple_spinner_dropdown_item,
-                searchSelectionList);
-        sp_search.setAdapter(searchList);
-        sp_search.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                et_search.setHint("Search " + searchSelectionList[i]);
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        et_search.clearFocus();
-
-        //If have time, i prefer create new class to store this function
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(globleValue.getApiUrl())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-
-        //That should be use fragment, it will much better
-        Intent intent = new Intent(this, SchoolDetailPage.class);
-
-        schoolAdapter = new SchoolAdapter(mContext);
-        dataDisplayListView.setAdapter(schoolAdapter);
-
-        getSchoolData();
-
-        dataDisplayListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //that should use fragment
-                School school = (School) adapterView.getItemAtPosition(i);
-                intent.putExtra("schoolData", school);
-                startActivity(intent);
-            }
-        });
-
-        btn_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //call api
-                getSchoolData();
-                et_search.clearFocus();
-            }
-        });
+//
+//        //all hardcode text should put in string file
+//        dataDisplayListView = findViewById(R.id.lv_result);
+//        tv_errorMsg = findViewById(R.id.tv_errorMsg);
+//        et_search= findViewById(R.id.et_search);
+//        btn_search= findViewById(R.id.btn_search);
+//        sp_search= findViewById(R.id.sp_search);
+//
+//        ArrayAdapter<String> searchList = new ArrayAdapter<String>(MainActivity.this,
+//                android.R.layout.simple_spinner_dropdown_item,
+//                searchSelectionList);
+//        sp_search.setAdapter(searchList);
+//        sp_search.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                et_search.setHint("Search " + searchSelectionList[i]);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
+//
+//        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+//        et_search.clearFocus();
+//
+//        //If have time, i prefer create new class to store this function
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(globleValue.getApiUrl())
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+//
+//        //That should be use fragment, it will much better
+//        Intent intent = new Intent(this, SchoolDetailPage.class);
+//
+//        schoolAdapter = new SchoolAdapter(mContext);
+//        dataDisplayListView.setAdapter(schoolAdapter);
+//
+//        getSchoolData();
+//
+//        dataDisplayListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                //that should use fragment
+//                School school = (School) adapterView.getItemAtPosition(i);
+//                intent.putExtra("schoolData", school);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        btn_search.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //call api
+//                getSchoolData();
+//                et_search.clearFocus();
+//            }
+//        });
 
     }
 

@@ -39,7 +39,7 @@ public class SchoolAdapter extends BaseAdapter {
     }
 
     private class ViewHolder {
-        private TextView tv_dbn, tv_school_name, tv_language_classes;
+        private TextView tv_dbn, tv_school_name, tv_address, tv_phone_num;
     }
 
     @Override
@@ -69,7 +69,8 @@ public class SchoolAdapter extends BaseAdapter {
 
             holder.tv_dbn = (TextView) convertView.findViewById(R.id.tv_dbn);
             holder.tv_school_name = (TextView) convertView.findViewById(R.id.tv_school_name);
-            holder.tv_language_classes = (TextView) convertView.findViewById(R.id.tv_language_classes);
+            holder.tv_address = (TextView) convertView.findViewById(R.id.tv_address);
+            holder.tv_phone_num = (TextView) convertView.findViewById(R.id.tv_phone_num);
 
             convertView.setTag(holder);
         }else{
@@ -80,7 +81,12 @@ public class SchoolAdapter extends BaseAdapter {
         School schoolData = mArrayList.get(position);
         holder.tv_dbn.setText(schoolData.getDbn());
         holder.tv_school_name.setText(schoolData.getSchool_name());
-        holder.tv_language_classes.setText(schoolData.getLanguage_classes());
+        String address = schoolData.getPrimary_address_line_1()
+                + "," + schoolData.getCity()
+                + " " + schoolData.getState_code()
+                + " " + schoolData.getZip();
+        holder.tv_address.setText(address);
+        holder.tv_phone_num.setText(schoolData.getPhone_number());
 
         return convertView;
     }
