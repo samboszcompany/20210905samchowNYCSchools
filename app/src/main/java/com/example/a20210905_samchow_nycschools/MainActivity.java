@@ -1,24 +1,21 @@
 package com.example.a20210905_samchow_nycschools;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Fragment;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.a20210905_samchow_nycschools.Adapter.SchoolAdapter;
 import com.example.a20210905_samchow_nycschools.Class.School;
 import com.example.a20210905_samchow_nycschools.Fragment.MainPage;
 
@@ -29,8 +26,6 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,11 +45,17 @@ public class MainActivity extends AppCompatActivity {
     //that should be return by api data which data allow the user can search for, need more info about the api
     final String[] searchSelectionList = {"dbn","school_name","phone_number","school_email","zip","city"};
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+//        getSupportActionBar().hide();
         fragmentManager = getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         mainPage = new MainPage();
@@ -123,6 +124,18 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem)
+    {
+        switch (menuItem.getItemId()) {
+            case android.R.id.home:
+                fragmentManager.popBackStack();
+                return true;
+            default:
+                return super.onOptionsItemSelected(menuItem);
+        }
     }
 
     private void getSchoolData(){

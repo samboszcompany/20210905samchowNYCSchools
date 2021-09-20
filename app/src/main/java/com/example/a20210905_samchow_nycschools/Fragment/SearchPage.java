@@ -6,21 +6,31 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.a20210905_samchow_nycschools.R;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class SearchPage extends Fragment {
 
-    final String[] searchSelectionList = {"dbn","school_name","phone_number","school_email","zip","city"};
 
     private FragmentManager fragmentManager;
 
-    private TextView tv_title,tv_dbn,tv_school_name,tv_phone_num,tv_email,tv_zip,tv_city;
-    private EditText et_dbn,et_school_name,et_email,et_phone_num,et_zip,et_city;
+    private EditText et_search;
     private Button btn_search;
+    private Spinner sp_search;
+
+    final String[] searchSelectionList = {"dbn","school_name","phone_number","zip","city"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -28,34 +38,47 @@ public class SearchPage extends Fragment {
         View view = inflater.inflate(R.layout.search_page, container, false);
 
         fragmentManager = getFragmentManager();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Search");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        tv_title = view.findViewById(R.id.tv_title);
-        tv_dbn = view.findViewById(R.id.tv_dbn);
-        tv_school_name = view.findViewById(R.id.tv_school_name);
-        tv_phone_num = view.findViewById(R.id.tv_phone_num);
-        tv_email = view.findViewById(R.id.tv_email);
-        tv_zip = view.findViewById(R.id.tv_zip);
-        tv_city = view.findViewById(R.id.tv_city);
-        et_dbn = view.findViewById(R.id.et_dbn);
-        et_school_name = view.findViewById(R.id.et_school_name);
-        et_email = view.findViewById(R.id.et_email);
-        et_phone_num = view.findViewById(R.id.et_phone_num);
-        et_zip = view.findViewById(R.id.et_zip);
-        et_city = view.findViewById(R.id.et_city);
+        et_search = view.findViewById(R.id.et_search);
+        sp_search = view.findViewById(R.id.sp_search);
         btn_search = view.findViewById(R.id.btn_search);
+
+        ArrayAdapter<String> searchList = new ArrayAdapter<String>( this.getActivity().getApplicationContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                searchSelectionList);
+        sp_search.setAdapter(searchList);
+        sp_search.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                et_search.setHint("Search " + searchSelectionList[i]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Map<String, String> parameters = new HashMap<>();
+                if (!et_search.getText().toString().isEmpty()){
+                    parameters.put(sp_search.getSelectedItem().toString(),et_search.getText().toString());
+                }
+
+                ResultPage resultPage = new ResultPage(parameters);
+
                 fragmentManager.beginTransaction()
-                        .replace(R.id.fm_mainpage,new ResultPage(),"searchPage")
+                        .replace(R.id.fm_mainpage,resultPage,"searchPage")
                         .addToBackStack(null)
                         .commit();
             }
         });
-
-
 
         return view;
     }

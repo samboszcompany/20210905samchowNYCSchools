@@ -1,4 +1,4 @@
-package com.example.a20210905_samchow_nycschools;
+package com.example.a20210905_samchow_nycschools.Adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 
 import com.example.a20210905_samchow_nycschools.Class.School;
+import com.example.a20210905_samchow_nycschools.R;
 
 import org.w3c.dom.Text;
 

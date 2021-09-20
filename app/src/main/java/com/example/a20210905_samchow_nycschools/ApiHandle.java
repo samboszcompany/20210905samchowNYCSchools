@@ -33,41 +33,21 @@ public class ApiHandle {
        return getRetrofit().create(JsonPlaceHolderApi.class);
     }
 
-    public void getSchoolData(HashMap<String,String> paramList, final ApiCallBack apiCallBack) {
-//        Map<String, String> parameters = paramList;
+    public void getSchoolData(Map<String,String> paramList, final ApiCallBack apiCallBack) {
         Map<String, String> parameters = paramList;
-        Log.d("debug", "calling getSchoolData");
 
         //calling api
         Call<ArrayList<School>> call = getJsonPlaceHolderApi().getSchoolData(parameters);
         call.enqueue(new Callback<ArrayList<School>>() {
             @Override
             public void onResponse(Call<ArrayList<School>> call, Response<ArrayList<School>> response) {
-                Log.d("debug", "calling onResponse");
-
                 if(!response.isSuccessful()){
-                    Log.d("debug", "return !response.isSuccessful() ");
                     return;
                 }
 
                 ArrayList<School> posts = response.body();
-                Log.d("debug", "return schoolArrayList = " + posts);
-
-                if(posts.isEmpty()){
-                }
 
                 apiCallBack.success(posts);
-
-                if(!response.isSuccessful()){
-
-                }
-
-//                Log.d("debug", "return isSuccessful ");
-//                ArrayList<School> schoolArrayList = response.body();
-//                Log.d("debug", "return schoolArrayList = " + response.body());
-//                apiCallBack.success(schoolArrayList);
-//
-//                Log.d("debug", "response.isSuccessful() fail");
             }
 
             @Override

@@ -2,6 +2,8 @@ package com.example.a20210905_samchow_nycschools.Fragment;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.a20210905_samchow_nycschools.R;
 
@@ -31,6 +34,9 @@ public class MainPage extends Fragment {
 
         fragmentManager = getFragmentManager();
 
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         btn_search_school = view.findViewById(R.id.btn_search_school);
         btn_search_sat = view.findViewById(R.id.btn_search_sat);
 

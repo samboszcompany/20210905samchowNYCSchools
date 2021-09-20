@@ -25,7 +25,6 @@ public class SchoolDetailPage extends AppCompatActivity {
 
         tv_school_name = findViewById(R.id.tv_school_name);
         tv_dbn = findViewById(R.id.tv_dbn);
-        tv_display_all = findViewById(R.id.tv_display_all);
 
         tv_school_name.setText(schoolList.getSchool_name());
         tv_dbn.setText(schoolList.getDbn());
@@ -80,7 +79,6 @@ public class SchoolDetailPage extends AppCompatActivity {
             description += "subway : " + schoolList.getSubway() + "\n";
         }
 
-        tv_display_all.setText(description);
 
     }
 

@@ -7,6 +7,8 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 public interface JsonPlaceHolderApi {
@@ -14,4 +16,5 @@ public interface JsonPlaceHolderApi {
 
     @GET("s3k6-pzi2.json")
     Call<ArrayList<School>> getSchoolData(@QueryMap Map<String, String> parameters);
+
 }
